@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import * as d3 from "d3";
 import ToDoList from "./ToDoList";
+import StartData from "./FormInitialData"
 import { set, local } from "d3";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -47,7 +48,9 @@ function App () {
 
     return (
     <>
+        <StartData />
         <ToDoList todos={todos} toggleTodo={toggleTodo} />
+        
         <input ref={todoNameRef} type="text" />
         <button onClick={handleAddTodo}>Add ToDo</button>
         <button onClick={handleClearTodos}>Clear Completed Todos</button>
