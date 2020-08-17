@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
+import "./StyleSheet.css";
 
-export default function StartData() {
+export default function StartData({ handleAdd }) {
     return (
-        <div class="container"> 
-            <from>
+        <div className="container"> 
                 <label> Brand:
                     <input type="text" name="brand" />
                 </label>
@@ -17,7 +17,7 @@ export default function StartData() {
                     <input type="date" id="start" name="mash-in-date" min="2018-01-01" max="2021-12-31" />
                 </label>
                 <br />
-            </from>
+                <button type="submit" onSubmit={handleAdd}>Add</button>
         </div>
     )
 }

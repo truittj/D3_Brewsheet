@@ -9,7 +9,9 @@ const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
 function App () {
     const [ todos, setTodos ] = useState([])
+    const [ docElms, setDocElms ] = useState([])
     const todoNameRef = useRef()
+    const docElmsRef = useRef()
 
     useEffect (()=> {
         const storedTodos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
@@ -27,7 +29,7 @@ function App () {
         setTodos(newTodos)
     }
 
-    function handleAddTodo(e) {
+    function handleAddTodos(e) {
         const name = todoNameRef.current.value
         if (name === '') return 
         setTodos(prevTodos => {
@@ -41,19 +43,36 @@ function App () {
         todoNameRef.current.value = null
     }
 
-    function handleClearTodos() {
+    function handleAddDocElems(e) {
+        const name = docElmsRef.current.value
+        if (name === '') return 
+        setDocElms(prevDocElms => {
+            return [...prevDocElms, 
+                { 
+                    id: uuidv4(), 
+                    name: name, 
+                    complete: false
+                }]
+            })
+            docElmsRef.current.value = null
+    }
+
+    function handleClear() {
         const newTodos = todos.filter(todo => !todo.complete)
         setTodos(newTodos)
     }
 
     return (
     <>
-        <StartData />
+        <StartData 
+            onSubmit={handleAddDocElems}
+            
+            />
         <ToDoList todos={todos} toggleTodo={toggleTodo} />
         
         <input ref={todoNameRef} type="text" />
-        <button onClick={handleAddTodo}>Add ToDo</button>
-        <button onClick={handleClearTodos}>Clear Completed Todos</button>
+        <button onClick={handleAddTodos}>Add ToDo</button>
+        <button onClick={handleClear}>Clear Completed Todos</button>
         <div>{todos.filter(todo => !todo.complete).length} left to do</div>
     </>
     );
